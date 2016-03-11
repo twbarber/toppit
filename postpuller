@@ -1,0 +1,18 @@
+import praw
+
+
+def get_top_posts(sub):
+    return r.get_subreddit(sub).get_top_from_day(limit=5)
+
+r = praw.Reddit(user_agent='toppit test')
+r.login()
+subs = ['programming', 'cscareerquestions']
+sup_posts = {}
+for sub in subs:
+    sup_posts.update({sub: get_top_posts(sub)})
+
+for sub in sup_posts.keys():
+    print(str(sub))
+    for post in sup_posts.get(sub):
+        print(str(post) + ': ' + str(post.short_link))
+    print('\n')
