@@ -5,8 +5,7 @@ def get_top_posts(sub):
     return r.get_subreddit(sub).get_top_from_day(limit=5)
 
 r = praw.Reddit(user_agent='toppit test')
-r.login()
-subs = ['programming', 'cscareerquestions']
+subs = ['programming', 'cscareerquestions', 'nfl']
 sup_posts = {}
 for sub in subs:
     sup_posts.update({sub: get_top_posts(sub)})
