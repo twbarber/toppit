@@ -2,4 +2,5 @@
 
 Email: you@gmail.com
 Password: your_gmail_password
-Subreddits: programming,cscareerquestions
+Recipients: comma,separated,list,of,recipients
+Subreddits: comma,separated,list,of,subreddits

@@ -6,11 +6,11 @@ from email.mime.text import MIMEText
 def send_today_toppit(config, message):
     sender = config.get('email')
     password = config.get('password')
-    recipient = sender
+    recipients = config.get('recipients')
 
     session = build_session(sender, password)
-    message = build_message(sender, recipient, message)
-    session.sendmail(sender, recipient, message.as_string())
+    message = build_message(sender, recipients, message)
+    session.sendmail(sender, recipients, message.as_string())
     session.quit()
 
 
@@ -22,9 +22,9 @@ def build_session(user, password):
     return session
 
 
-def build_message(sender, recipient, message):
-    msg = MIMEText(message)
+def build_message(sender, recipients, message):
+    msg = MIMEText(message, 'html')
     msg['Subject'] = 'Toppit Update: %s' % time.strftime('%x')
     msg['From'] = sender
-    msg['To'] = recipient
+    msg['To'] = ", ".join(recipients)
     return msg

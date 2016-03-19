@@ -2,6 +2,6 @@ import config
 import mailer
 import postpuller
 
-config = config.load_config()
-content = postpuller.pull(['programming'])
-mailer.send_today_toppit(config, content)
+conf = config.load_config()
+content = postpuller.pull(conf.get('subreddits'))
+mailer.send_today_toppit(conf, content)
