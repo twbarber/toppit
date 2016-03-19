@@ -1,4 +1,7 @@
-import config, mailer, postpuller
+import config
+import mailer
+import postpuller
 
-conf = config.load_config()
-print(config.get('email'))
+config = config.load_config()
+content = postpuller.pull(['programming'])
+mailer.send_today_toppit(config, content)

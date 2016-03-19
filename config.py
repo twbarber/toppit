@@ -1,13 +1,10 @@
 import configparser
 
 
-def load_config(self):
+def load_config():
     config = configparser.ConfigParser()
     config.read('.toppit')
     subreddits = []
-    for subreddit in config.get('Subreddits').split(','):
+    for subreddit in config.get('toppit', 'Subreddits').split(','):
         subreddits.append(subreddit)
-    return {
-        'email': config.get('Email'),
-        'subreddits': subreddits
-    }
+    return dict(email=config.get('toppit', 'Email'), password=config.get('toppit', 'Password'), subreddits=subreddits)

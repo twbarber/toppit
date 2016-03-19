@@ -2,16 +2,20 @@ import praw
 
 
 def get_top_posts(sub):
+    r = praw.Reddit(user_agent='toppit test')
     return r.get_subreddit(sub).get_top_from_day(limit=5)
 
-r = praw.Reddit(user_agent='toppit test')
-subs = ['programming', 'cscareerquestions', 'nfl']
-sup_posts = {}
-for sub in subs:
-    sup_posts.update({sub: get_top_posts(sub)})
 
-for sub in sup_posts.keys():
-    print(str(sub))
-    for post in sup_posts.get(sub):
-        print(str(post) + ': ' + str(post.short_link))
-    print('\n')
+def pull(subreddits):
+    sup_posts = {}
+    for sub in subreddits:
+        sup_posts.update({sub: get_top_posts(sub)})
+
+    content = ""
+    for sub in sup_posts.keys():
+        content += str(sub) + '\n\n'
+        for post in sup_posts.get(sub):
+            content += (str(post) + ': ' + str(post.short_link))
+            content += '\n'
+
+    return content
