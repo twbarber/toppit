@@ -1,7 +1,6 @@
-import config
-import mailer
-import postpuller
+from toppit import config, postpuller, message, mailer
 
 conf = config.load_config()
-content = postpuller.pull(conf.get('subreddits'))
+posts = postpuller.pull(conf.get('subreddits'))
+content = message.format_message(posts)
 mailer.send_today_toppit(conf, content)
