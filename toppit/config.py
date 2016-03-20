@@ -1,57 +1,23 @@
 import configparser
 
-conf = None
+from toppit.interval import Interval
 
 
-def get_sender_email():
-    global conf
-    return conf.get('toppit', 'Email')
+class Config:
 
+    def __init__(self):
+        config = configparser.ConfigParser()
+        config.read('.toppit')
+        self.email = config.get('toppit', 'Email')
+        self.password = config.get('toppit', 'Password')
+        self.subreddits = self.__parse_list(config.get('toppit', 'Subreddits'))
+        self.recipients = self.__parse_list(config.get('toppit', 'Recipients'))
+        self.interval = Interval[config.get('toppit', 'Interval')]
+        self.count = int(config.get('toppit', 'Count'))
 
-def get_sender_password():
-    global conf
-    return conf.get('toppit', 'Password')
+    def __parse_list(self, subs):
+        values = []
+        for val in subs.split(','):
+            values.append(val)
+        return values
 
-
-def get_recipients():
-    global conf
-    recipients = []
-    for recipient in conf.get('toppit', 'Recipients').split(','):
-        recipients.append(recipient)
-    return recipients
-
-
-def get_subreddits():
-    global conf
-    subreddits = []
-    for subreddit in conf.get('toppit', 'Subreddits').split(','):
-        subreddits.append(subreddit)
-    return subreddits
-
-
-def get_interval():
-    global conf
-    return conf.get('toppit', 'Interval')
-
-
-def get_count():
-    global conf
-    return conf.get('toppit', 'Count')
-
-
-def load_config():
-    global conf
-    config = configparser.ConfigParser()
-    conf = config.read('.toppit')
-    email = get_sender_email()
-    password = get_sender_password()
-    subreddits = get_subreddits()
-    recipients = get_recipients()
-    interval = get_interval()
-    count = get_count()
-    return dict(email=email,
-                password=password,
-                subreddits=subreddits,
-                recipients=recipients,
-                interval=interval,
-                count=count)

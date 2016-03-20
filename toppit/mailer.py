@@ -4,9 +4,9 @@ from email.mime.text import MIMEText
 
 
 def send_today_toppit(config, message):
-    sender = config.get('email')
-    password = config.get('password')
-    recipients = config.get('recipients')
+    sender = config.email
+    password = config.password
+    recipients = config.recipients
 
     session = build_session(sender, password)
     message = build_message(sender, recipients, message)
