@@ -3,5 +3,5 @@ from toppit.config import Config
 
 conf = Config()
 posts = postpuller.pull(conf.subreddits, conf.interval, conf.count)
-content = message.format_message(posts)
-mailer.send_today_toppit(conf, content)
+content = message.build(posts)
+mailer.send(conf, content)

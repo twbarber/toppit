@@ -1,9 +1,8 @@
 import smtplib
-import time
 from email.mime.text import MIMEText
 
 
-def send_today_toppit(config, message):
+def send(config, message):
     sender = config.email
     password = config.password
     recipients = config.recipients
@@ -24,7 +23,7 @@ def build_session(user, password):
 
 def build_message(sender, recipients, message):
     msg = MIMEText(message, 'html')
-    msg['Subject'] = 'Toppit Update: %s' % time.strftime('%x')
+    msg['Subject'] = 'Toppit Update'
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
     return msg
